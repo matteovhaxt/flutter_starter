@@ -1,16 +1,25 @@
 # flutter_starter
 
-A new Flutter project.
+A reusable flutter starter template that contains all standard-features of a multi-platform app.
+1. [Localizations](https://pub.dev/packages/easy_localization)
+2. [Routing](https://pub.dev/packages/go_router)
+3. [State-management](https://pub.dev/packages/riverpod)
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+Pro tip: Install [runme](https://docs.runme.dev/installation/installrunme) to run all the steps below automatically
 
-A few resources to get you started if this is your first Flutter project:
+1. Install [fvm](https://fvm.app/documentation/getting-started/installation) and run:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+fvm use
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Check if everything is setup properly
+
+```bash
+fvm doctor
+````
+```bash
+fvm flutter doctor
+```
