@@ -18,12 +18,27 @@ dependencies:
   # utils
   go_router: ^13.2.0
   easy_localization: ^3.0.4
+  envied: ^0.5.3
+
+  # state management
+  flutter_riverpod: ^2.4.10
+  riverpod_annotation: ^2.3.4
+
+  # backend
+  supabase_flutter: ^2.3.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # linting
   flutter_lints: ^3.0.0
+  custom_lint: ^0.6.2
+
+  # code gen
+  build_runner: ^2.4.8
+  riverpod_generator: ^2.3.11
+  envied_generator: ^0.5.3
   
 flutter:
 
