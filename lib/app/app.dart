@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_starter/app/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:flutter_starter/app/core/core.dart';
-import 'package:flutter_starter/app/features/features.dart';
-
 class App extends ConsumerWidget {
   App({super.key});
 

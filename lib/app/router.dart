@@ -11,7 +11,7 @@ class Router extends _$Router {
   @override
   GoRouter build() => GoRouter(
         redirect: (context, state) {
-          final user = ref.watch(authStateProvider).asData?.value;
+          final user = ref.watch(authStateProvider).asData?.value?.user;
           if (user == null) {
             return '/auth';
           } else {

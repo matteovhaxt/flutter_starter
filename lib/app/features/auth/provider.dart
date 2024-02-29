@@ -6,7 +6,8 @@ part 'provider.g.dart';
 @riverpod
 class AuthState extends _$AuthState {
   @override
-  AsyncValue<User?> build() => const AsyncValue.data(null);
+  AsyncValue<Session?> build() =>
+      AsyncValue.data(Supabase.instance.client.auth.currentSession);
 
   void signInWithEmail({
     required String email,
@@ -21,7 +22,7 @@ class AuthState extends _$AuthState {
       if (response.user == null) {
         throw UnimplementedError();
       } else {
-        return response.user;
+        return response.session;
       }
     });
   }
@@ -39,7 +40,7 @@ class AuthState extends _$AuthState {
       if (response.user == null) {
         throw UnimplementedError();
       } else {
-        return response.user;
+        return response.session;
       }
     });
   }
