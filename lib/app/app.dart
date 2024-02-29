@@ -1,38 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_starter/app/router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class App extends StatelessWidget {
+import 'package:flutter_starter/app/core/core.dart';
+import 'package:flutter_starter/app/features/features.dart';
+
+class App extends ConsumerWidget {
   App({super.key});
 
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => Scaffold(
-          body: Center(
-            child: Text(
-              'placeholder'.tr(),
-            ),
-          ),
-        ),
-      ),
-    ],
-    errorBuilder: (context, state) => Scaffold(
-      body: Center(
-        child: Text(
-          state.error.toString(),
-        ),
-      ),
-    ),
-  );
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      routerDelegate: _router.routerDelegate,
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

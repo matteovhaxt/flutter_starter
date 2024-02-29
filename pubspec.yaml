@@ -21,11 +21,13 @@ dependencies:
   envied: ^0.5.3
 
   # state management
-  flutter_riverpod: ^2.4.10
   riverpod_annotation: ^2.3.4
 
   # backend
   supabase_flutter: ^2.3.4
+  gap: ^3.0.1
+  hooks_riverpod: ^2.4.10
+  flutter_hooks: ^0.20.5
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +41,7 @@ dev_dependencies:
   build_runner: ^2.4.8
   riverpod_generator: ^2.3.11
   envied_generator: ^0.5.3
+  riverpod_lint: ^2.3.9
   
 flutter:
 
