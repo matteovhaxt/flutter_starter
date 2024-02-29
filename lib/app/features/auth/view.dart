@@ -34,13 +34,11 @@ class AuthView extends HookConsumerWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               ElevatedButton(
-                child: switch (authState) {
-                  AsyncData(:final value) => Text(value?.email ?? 'Sign Up'),
-                  AsyncLoading() => const CircularProgressIndicator(),
-                  AsyncError(:final error) =>
-                    Text((error as AuthException).message),
-                  _ => null,
-                },
+                child: authState.when(
+                  data: (value) => Text(value?.user.email ?? 'Sign Up'),
+                  error: (error, _) => Text((error as AuthException).message),
+                  loading: () => const CircularProgressIndicator(),
+                ),
                 onPressed: () =>
                     ref.read(authStateProvider.notifier).signUpWithEmail(
                           email: emailController.text,
