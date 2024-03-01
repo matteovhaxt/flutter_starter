@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import 'package:flutter_starter/app/features/features.dart';
+
+part 'widgets/navigation_bar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -8,60 +14,30 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int selectedIndex = 1;
+  int selectedIndex = 0;
 
-  void onSelectItem(int index) => setState(() => selectedIndex = index);
+  void onSelectIndex(int index) => setState(() => selectedIndex = index);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: _buildNavigationBar(onSelectItem),
-      body: _buildBody(selectedIndex),
+      bottomSheet: NavBar(
+        onSelectIndex: onSelectIndex,
+      ),
+      body: IndexedStack(
+        index: selectedIndex,
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+          Container(
+            color: Colors.green,
+          ),
+        ],
+      ),
     );
   }
-}
-
-Widget _buildBody(int index) {
-  return IndexedStack(
-    index: index,
-    children: [
-      Expanded(
-        child: Container(
-          color: Colors.red,
-        ),
-      ),
-      Expanded(
-        child: Container(
-          color: Colors.blue,
-        ),
-      ),
-      Expanded(
-        child: Container(
-          color: Colors.green,
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _buildNavigationBar(void Function(int) onSelectItem) {
-  return Padding(
-    padding: const EdgeInsets.all(16),
-    child: NavigationBar(
-      destinations: [
-        IconButton(
-          icon: const Icon(Icons.home),
-          onPressed: () => onSelectItem(0),
-        ),
-        IconButton(
-          icon: const Icon(Icons.chat),
-          onPressed: () => onSelectItem(1),
-        ),
-        IconButton(
-          icon: const Icon(Icons.settings),
-          onPressed: () => onSelectItem(2),
-        ),
-      ],
-    ),
-  );
 }

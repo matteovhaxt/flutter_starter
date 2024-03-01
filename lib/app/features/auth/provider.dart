@@ -44,4 +44,12 @@ class AuthState extends _$AuthState {
       }
     });
   }
+
+  void signOut() async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await Supabase.instance.client.auth.signOut();
+      return null;
+    });
+  }
 }

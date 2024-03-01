@@ -33,13 +33,6 @@ class App extends StatelessWidget {
           builder: (context, state) => const HomeView(),
         ),
       ],
-      errorBuilder: (context, state) => Scaffold(
-        body: Center(
-          child: Text(
-            state.error.toString(),
-          ),
-        ),
-      ),
     );
     return MaterialApp.router(
       routerDelegate: router.routerDelegate,
@@ -48,6 +41,9 @@ class App extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      themeMode: ThemeMode.dark,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
     );
   }
 }

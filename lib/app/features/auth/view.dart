@@ -1,50 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+
+import 'package:flutter_starter/app/core/core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'auth.dart';
-import 'package:flutter_starter/app/core/core.dart';
 
 class AuthView extends HookConsumerWidget {
   const AuthView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final authState = ref.watch(authStateProvider);
+    if (authState.hasError) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text((authState.error as AuthException).message),
+          ),
+        );
+      });
+    }
     return Scaffold(
       body: Center(
-        child: FractionallySizedBox(
-          heightFactor: .3,
-          widthFactor: .3,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: 400,
+          ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextFormField(
-                controller: emailController,
-                validator: (value) => value?.validateEmail(),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-              ),
-              TextFormField(
-                controller: passwordController,
-                validator: (value) => value?.validatePassword(),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-              ),
-              ElevatedButton(
-                child: authState.when(
-                  data: (value) => Text(value?.user.email ?? 'Sign Up'),
-                  error: (error, _) => Text((error as AuthException).message),
-                  loading: () => const CircularProgressIndicator(),
+              Card.outlined(
+                clipBehavior: Clip.hardEdge,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    controller: emailController,
+                    autofocus: true,
+                    validator: (value) => value?.validateEmail(),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
                 ),
-                onPressed: () =>
-                    ref.read(authStateProvider.notifier).signUpWithEmail(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        ),
-              )
+              ),
+              Card.outlined(
+                clipBehavior: Clip.hardEdge,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    validator: (value) => value?.validatePassword(),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      icon: const Icon(LucideIcons.logIn),
+                      label: const Text('Sign In'),
+                      onPressed: () =>
+                          ref.read(authStateProvider.notifier).signInWithEmail(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      icon: const Icon(LucideIcons.userPlus),
+                      label: const Text('Sign Up'),
+                      onPressed: () =>
+                          ref.read(authStateProvider.notifier).signUpWithEmail(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                    ),
+                  ),
+                ].separated(
+                  const Gap(10),
+                ),
+              ),
             ].separated(
               const Gap(10),
             ),

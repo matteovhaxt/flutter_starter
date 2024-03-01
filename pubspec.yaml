@@ -28,6 +28,7 @@ dependencies:
   gap: ^3.0.1
   hooks_riverpod: ^2.4.10
   flutter_hooks: ^0.20.5
+  lucide_icons: ^0.257.0
 
 dev_dependencies:
   flutter_test:
