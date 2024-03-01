@@ -13,6 +13,7 @@ void main() async {
     anonKey: Env.supabaseKey,
   );
 
+  // ignore: missing_provider_scope
   runApp(
     const AppWrapper(),
   );

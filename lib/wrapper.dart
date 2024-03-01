@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:flutter_starter/app/app.dart';
 
 class AppWrapper extends StatelessWidget {
@@ -13,7 +14,7 @@ class AppWrapper extends StatelessWidget {
         path: 'assets/translations',
         fallbackLocale: const Locale('en', 'US'),
         supportedLocales: const [Locale('en', 'US')],
-        child: App(),
+        child: const App(),
       ),
     );
   }
