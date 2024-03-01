@@ -1,14 +1,46 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/app/router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class App extends ConsumerWidget {
-  App({super.key});
+import 'core/core.dart';
+import 'features/features.dart';
+
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
+  Widget build(BuildContext context) {
+    final router = GoRouter(
+      refreshListenable: StreamListenable(
+        Supabase.instance.client.auth.onAuthStateChange,
+      ),
+      redirect: (context, state) {
+        final user = Supabase.instance.client.auth.currentSession?.user;
+        if (user == null) {
+          return '/auth';
+        } else {
+          return '/';
+        }
+      },
+      routes: [
+        GoRoute(
+          path: '/auth',
+          builder: (context, state) => const AuthView(),
+        ),
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const HomeView(),
+        ),
+      ],
+      errorBuilder: (context, state) => Scaffold(
+        body: Center(
+          child: Text(
+            state.error.toString(),
+          ),
+        ),
+      ),
+    );
     return MaterialApp.router(
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
