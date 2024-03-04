@@ -1,8 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-import 'package:flutter_starter/app/features/features.dart';
+// Project imports:
+import '../features.dart';
 
 part 'widgets/navigation_bar.dart';
 

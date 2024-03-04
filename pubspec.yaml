@@ -43,6 +43,9 @@ dev_dependencies:
   riverpod_generator: ^2.3.11
   envied_generator: ^0.5.3
   riverpod_lint: ^2.3.9
+
+  # utils
+  import_sorter: ^4.6.0
   
 flutter:
 

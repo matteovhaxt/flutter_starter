@@ -1,13 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+// Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-
-import 'package:flutter_starter/app/core/core.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// Project imports:
+import '../../core/core.dart';
 import 'auth.dart';
 
 class AuthView extends HookConsumerWidget {

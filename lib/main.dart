@@ -1,8 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_starter/env.dart';
-import 'package:flutter_starter/wrapper.dart';
+
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+// Project imports:
+import 'env.dart';
+import 'wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
