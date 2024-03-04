@@ -26,7 +26,11 @@ class App extends ConsumerWidget {
         if (user == null) {
           return '/auth';
         } else {
-          return null;
+          if (state.fullPath == '/auth') {
+            return '/';
+          } else {
+            return null;
+          }
         }
       },
       routes: [
