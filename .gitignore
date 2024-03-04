@@ -1,7 +1,5 @@
-*.env
-env.g.dart
-
 # Miscellaneous
+*.env
 *.class
 *.log
 *.pyc
@@ -47,3 +45,6 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Freezed
+**.g.dart
