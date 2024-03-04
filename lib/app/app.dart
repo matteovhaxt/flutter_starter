@@ -17,6 +17,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = GoRouter(
+      initialLocation: '/',
       refreshListenable: StreamListenable(
         ref.read(supabaseProvider).auth.onAuthStateChange,
       ),
@@ -25,7 +26,7 @@ class App extends ConsumerWidget {
         if (user == null) {
           return '/auth';
         } else {
-          return '/';
+          return null;
         }
       },
       routes: [
@@ -33,9 +34,31 @@ class App extends ConsumerWidget {
           path: '/auth',
           builder: (context, state) => const AuthView(),
         ),
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const HomeView(),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) =>
+              NavigationView(navigationShell),
+          branches: [
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/',
+                  builder: (context, state) => const HomeView(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: '/settings',
+                  builder: (context, state) => const Scaffold(
+                    body: Center(
+                      child: Text('Settings'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );

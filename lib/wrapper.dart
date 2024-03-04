@@ -6,8 +6,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
-import 'providers.dart';
 import 'app/app.dart';
+import 'providers.dart';
 
 class AppWrapper extends ConsumerWidget {
   const AppWrapper({super.key});
