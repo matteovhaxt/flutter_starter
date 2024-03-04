@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:flutter_starter/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -8,7 +9,7 @@ part 'provider.g.dart';
 class AuthState extends _$AuthState {
   @override
   AsyncValue<Session?> build() =>
-      AsyncValue.data(Supabase.instance.client.auth.currentSession);
+      AsyncValue.data(ref.read(supabaseProvider).auth.currentSession);
 
   void signInWithEmail({
     required String email,
@@ -16,10 +17,10 @@ class AuthState extends _$AuthState {
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final response = await Supabase.instance.client.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
+      final response = await ref.read(supabaseProvider).auth.signInWithPassword(
+            email: email,
+            password: password,
+          );
       if (response.user == null) {
         throw UnimplementedError();
       } else {
@@ -34,10 +35,10 @@ class AuthState extends _$AuthState {
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final response = await Supabase.instance.client.auth.signInWithPassword(
-        email: email,
-        password: password,
-      );
+      final response = await ref.read(supabaseProvider).auth.signInWithPassword(
+            email: email,
+            password: password,
+          );
       if (response.user == null) {
         throw UnimplementedError();
       } else {
@@ -49,7 +50,7 @@ class AuthState extends _$AuthState {
   void signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await Supabase.instance.client.auth.signOut();
+      await ref.read(supabaseProvider).auth.signOut();
       return null;
     });
   }

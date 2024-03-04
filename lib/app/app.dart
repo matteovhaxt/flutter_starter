@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_starter/providers.dart';
 import 'package:go_router/go_router.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'core/core.dart';
 import 'features/features.dart';
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final router = GoRouter(
       refreshListenable: StreamListenable(
-        Supabase.instance.client.auth.onAuthStateChange,
+        ref.read(supabaseProvider).auth.onAuthStateChange,
       ),
       redirect: (context, state) {
-        final user = Supabase.instance.client.auth.currentSession?.user;
+        final user = ref.read(supabaseProvider).auth.currentSession?.user;
         if (user == null) {
           return '/auth';
         } else {
