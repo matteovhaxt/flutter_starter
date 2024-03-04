@@ -29,6 +29,7 @@ dependencies:
   hooks_riverpod: ^2.4.10
   flutter_hooks: ^0.20.5
   lucide_icons: ^0.257.0
+  logger: ^2.1.0
 
 dev_dependencies:
   flutter_test:
