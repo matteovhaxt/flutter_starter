@@ -37,7 +37,7 @@ class AuthState extends _$AuthState {
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      final response = await ref.read(supabaseProvider).auth.signInWithPassword(
+      final response = await ref.read(supabaseProvider).auth.signUp(
             email: email,
             password: password,
           );
