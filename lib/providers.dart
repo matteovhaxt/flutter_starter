@@ -19,8 +19,8 @@ Future<void> appStartup(AppStartupRef ref) async {
   await EasyLocalization.ensureInitialized();
 
   await Supabase.initialize(
-    url: Env.supabaseUrl,
-    anonKey: Env.supabaseKey,
+    url: Env.supabaseApiUrl,
+    anonKey: Env.supabaseAnonKey,
   );
 }
 
