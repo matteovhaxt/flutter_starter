@@ -13,23 +13,27 @@ dependencies:
     sdk: flutter
   
   # ui
-  cupertino_icons: ^1.0.6
+  lucide_icons: ^0.257.0
+  gap: ^3.0.1
 
   # utils
   go_router: ^13.2.0
   easy_localization: ^3.0.4
   envied: ^0.5.3
+  logger: ^2.1.0
+  uuid: ^4.3.3
 
   # state management
   riverpod_annotation: ^2.3.4
+  flutter_hooks: ^0.20.5
+  hooks_riverpod: ^2.4.10
 
   # backend
   supabase_flutter: ^2.3.4
-  gap: ^3.0.1
-  hooks_riverpod: ^2.4.10
-  flutter_hooks: ^0.20.5
-  lucide_icons: ^0.257.0
-  logger: ^2.1.0
+
+  # annotation
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
@@ -38,12 +42,14 @@ dev_dependencies:
   # linting
   flutter_lints: ^3.0.0
   custom_lint: ^0.6.2
+  riverpod_lint: ^2.3.9
 
   # code gen
   build_runner: ^2.4.8
   riverpod_generator: ^2.3.11
   envied_generator: ^0.5.3
-  riverpod_lint: ^2.3.9
+  freezed: ^2.4.7
+  json_serializable: ^6.7.1
 
   # utils
   import_sorter: ^4.6.0

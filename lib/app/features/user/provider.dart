@@ -1,0 +1,98 @@
+// Package imports:
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:uuid/uuid.dart';
+
+// Project imports:
+import '../../../providers.dart';
+import '../../core/core.dart';
+import '../features.dart';
+
+part 'provider.g.dart';
+
+@riverpod
+class UserState extends _$UserState {
+  @override
+  AsyncValue<User?> build() {
+    final authId = ref.read(supabaseProvider).auth.currentSession?.user.id;
+    if (authId == null) {
+      throw Exception('Auth user not found');
+    }
+    getUser(authId);
+    return state;
+  }
+
+  void createUser(String name, DateTime birthDate) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final user = User(
+        id: const Uuid().v4(),
+        authId: ref.read(authStateProvider).value!.user.id,
+        name: name,
+        birthDate: birthDate,
+        email: ref.read(authStateProvider).value!.user.email!,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
+      final response = await ref
+          .read(supabaseProvider)
+          .from('users')
+          .insert(user.toJson())
+          .select();
+      if (response.isEmpty) {
+        ref.read(loggerProvider).e('Error creating user');
+        return null;
+      }
+      return User.fromJson(response.first);
+    });
+  }
+
+  void getUser(String authId) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final response = await ref
+          .read(supabaseProvider)
+          .from('users')
+          .select()
+          .eq('auth_id', authId);
+      if (response.isEmpty) {
+        ref.read(loggerProvider).e('Error fetching user');
+        return null;
+      }
+      return User.fromJson(response.first);
+    });
+  }
+
+  void updateUser(String authId, User updatedUser) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final response = await ref
+          .read(supabaseProvider)
+          .from('users')
+          .update(updatedUser.toJson())
+          .eq('auth_id', authId)
+          .select();
+      if (response.isEmpty) {
+        ref.read(loggerProvider).e('Error updating user');
+        return null;
+      }
+      return User.fromJson(response.first);
+    });
+  }
+
+  void deleteUser(String authId) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final response = await ref
+          .read(supabaseProvider)
+          .from('users')
+          .delete()
+          .eq('auth_id', authId)
+          .select();
+      if (response.isEmpty) {
+        ref.read(loggerProvider).e('Error deleting user');
+        return null;
+      }
+      return User.fromJson(response.first);
+    });
+  }
+}

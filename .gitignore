@@ -48,3 +48,4 @@ app.*.map.json
 
 # Freezed
 **.g.dart
+**.freezed.dart

@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 // Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -22,24 +21,14 @@ class AuthView extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final authState = ref.watch(authStateProvider);
     if (authState.hasError) {
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text((authState.error as AuthException).message),
-          ),
-        );
-      });
+      context.showSnackBar((authState.error as AuthException).message);
     }
     return Scaffold(
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 400,
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Card.outlined(
                 clipBehavior: Clip.hardEdge,
@@ -50,6 +39,9 @@ class AuthView extends HookConsumerWidget {
                     autofocus: true,
                     validator: (value) => value?.validateEmail(),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
                   ),
                 ),
               ),
@@ -62,6 +54,9 @@ class AuthView extends HookConsumerWidget {
                     obscureText: true,
                     validator: (value) => value?.validatePassword(),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                    ),
                   ),
                 ),
               ),

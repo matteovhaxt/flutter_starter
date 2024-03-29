@@ -18,18 +18,24 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = GoRouter(
       initialLocation: '/',
-      refreshListenable: StreamListenable(
-        ref.read(supabaseProvider).auth.onAuthStateChange,
-      ),
+      refreshListenable: Listenable.merge([
+        StreamListenable(ref.read(supabaseProvider).auth.onAuthStateChange),
+        ValueNotifier(ref.watch(userStateProvider).value),
+      ]),
       redirect: (context, state) {
-        final user = ref.read(supabaseProvider).auth.currentSession?.user;
-        if (user == null) {
+        final authUser = ref.read(supabaseProvider).auth.currentSession?.user;
+        if (authUser == null) {
           return '/auth';
         } else {
-          if (state.fullPath == '/auth') {
-            return '/';
+          final user = ref.read(userStateProvider).value;
+          if (user == null) {
+            return '/signup';
           } else {
-            return null;
+            if (state.fullPath == '/auth' || state.fullPath == '/signup') {
+              return '/';
+            } else {
+              return null;
+            }
           }
         }
       },
@@ -37,6 +43,10 @@ class App extends ConsumerWidget {
         GoRoute(
           path: '/auth',
           builder: (context, state) => const AuthView(),
+        ),
+        GoRoute(
+          path: '/signup',
+          builder: (context, state) => const SignupView(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
