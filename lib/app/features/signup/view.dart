@@ -16,14 +16,14 @@ class SignupView extends HookConsumerWidget {
 
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Name is required';
+      return 'signup.name_is_required'.tr();
     }
     return null;
   }
 
   String? _validateBirthdate(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Birthdate is required';
+      return 'signup.birthdate_is_required'.tr();
     }
     return null;
   }
@@ -61,8 +61,8 @@ class SignupView extends HookConsumerWidget {
                     autofocus: true,
                     validator: _validateName,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
+                    decoration: InputDecoration(
+                      labelText: 'signup.name'.tr(),
                     ),
                   ),
                 ),
@@ -83,8 +83,8 @@ class SignupView extends HookConsumerWidget {
                     },
                     validator: _validateBirthdate,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                      labelText: 'Birthdate',
+                    decoration: InputDecoration(
+                      labelText: 'signup.birthdate'.tr(),
                     ),
                   ),
                 ),
@@ -96,13 +96,13 @@ class SignupView extends HookConsumerWidget {
                         DateTime.parse(birthdateController.text),
                       );
                 },
-                child: const Text('Sign Up'),
+                child: Text('signup.signup'.tr()),
               ),
               TextButton(
                 onPressed: () {
                   ref.read(authStateProvider.notifier).signOut();
                 },
-                child: const Text('Sign Out'),
+                child: Text('signup.signout'.tr()),
               )
             ].separated(
               const Gap(8),

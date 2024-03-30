@@ -1,3 +1,40 @@
 {
-    "placeholder": "Placeholder"
+    "global": {
+
+    },
+    "auth": {
+        "signin": "Sign In",
+        "signup": "Sign Up",
+        "email": "Email",
+        "password": "Password"
+    },
+    "signup": {
+        "name": "Name",
+        "name_is_required": "Name is required",
+        "birthdate": "Birthdate",
+        "birthdate_is_required": "Birthdate is required",
+        "signup": "Sign Up",
+        "signout": "Sign Out"
+    },
+    "navigation": {
+        "home": "Home",
+        "settings": "Settings"
+    },
+    "home": {
+
+    },
+    "settings": {
+        "headline": "Settings",
+        "name": "Name",
+        "email": "Email",
+        "save": "Save",
+        "signout": "Sign Out",
+        "delete_account": {
+            "button": "Delete Account",
+            "message": "Are you sure you want to delete your account?",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
+        }
+    }
 }
+

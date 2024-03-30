@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -39,8 +40,8 @@ class AuthView extends HookConsumerWidget {
                     autofocus: true,
                     validator: (value) => value?.validateEmail(),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
+                    decoration: InputDecoration(
+                      labelText: 'auth.email'.tr(),
                     ),
                   ),
                 ),
@@ -54,8 +55,8 @@ class AuthView extends HookConsumerWidget {
                     obscureText: true,
                     validator: (value) => value?.validatePassword(),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
+                    decoration: InputDecoration(
+                      labelText: 'auth.password'.tr(),
                     ),
                   ),
                 ),
@@ -65,7 +66,7 @@ class AuthView extends HookConsumerWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       icon: const Icon(LucideIcons.logIn),
-                      label: const Text('Sign In'),
+                      label: Text('auth.signin'.tr()),
                       onPressed: () =>
                           ref.read(authStateProvider.notifier).signInWithEmail(
                                 email: emailController.text,
@@ -76,7 +77,7 @@ class AuthView extends HookConsumerWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       icon: const Icon(LucideIcons.userPlus),
-                      label: const Text('Sign Up'),
+                      label: Text('auth.signup'.tr()),
                       onPressed: () =>
                           ref.read(authStateProvider.notifier).signUpWithEmail(
                                 email: emailController.text,

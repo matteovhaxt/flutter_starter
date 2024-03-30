@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -17,14 +18,14 @@ class NavigationView extends ConsumerWidget {
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            label: 'Home',
-            icon: Icon(LucideIcons.home),
+            label: 'navigation.home'.tr(),
+            icon: const Icon(LucideIcons.home),
           ),
           NavigationDestination(
-            label: 'Settings',
-            icon: Icon(LucideIcons.settings),
+            label: 'navigation.settings'.tr(),
+            icon: const Icon(LucideIcons.settings),
           ),
         ],
         onDestinationSelected: (index) => navigationShell.goBranch(

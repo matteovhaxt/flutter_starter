@@ -1,10 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// Project imports:
 import '../../core/core.dart';
 import '../features.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
@@ -29,7 +35,7 @@ class SettingsView extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Settings',
+                'settings.headline'.tr(),
                 style: context.theme.textTheme.headlineMedium,
               ),
               Card.outlined(
@@ -38,8 +44,8 @@ class SettingsView extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextFormField(
                     controller: nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
+                    decoration: InputDecoration(
+                      labelText: 'settings.name'.tr(),
                     ),
                   ),
                 ),
@@ -50,14 +56,14 @@ class SettingsView extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextFormField(
                     controller: emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
+                    decoration: InputDecoration(
+                      labelText: 'settings.email'.tr(),
                     ),
                   ),
                 ),
               ),
               ElevatedButton(
-                child: const Text('Save'),
+                child: Text('settings.save'.tr()),
                 onPressed: () {
                   final user = ref.read(userStateProvider).value;
                   ref.read(userStateProvider.notifier).updateUser(
@@ -72,14 +78,14 @@ class SettingsView extends HookConsumerWidget {
                 },
               ),
               TextButton(
-                child: const Text('Sign Out'),
+                child: Text('settings.signout'.tr()),
                 onPressed: () {
                   ref.read(authStateProvider.notifier).signOut();
                 },
               ),
               TextButton(
                 child: Text(
-                  'Delete Account',
+                  'settings.delete_account.button'.tr(),
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: context.theme.colorScheme.error,
                   ),
@@ -93,13 +99,13 @@ class SettingsView extends HookConsumerWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Text(
-                                      'Are you sure you want to delete your account?'),
+                                  Text('settings.delete_account.message'.tr()),
                                   ElevatedButton(
                                     onPressed: () {
                                       context.pop();
                                     },
-                                    child: const Text('Cancel'),
+                                    child: Text(
+                                        'settings.delete_account.cancel'.tr()),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -111,7 +117,7 @@ class SettingsView extends HookConsumerWidget {
                                           .signOut();
                                     },
                                     child: Text(
-                                      'Delete Account',
+                                      'settings.delete_account.confirm'.tr(),
                                       style: context.theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: context.theme.colorScheme.error,
