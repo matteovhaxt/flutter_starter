@@ -3,11 +3,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 // Project imports:
-import '../../../providers.dart';
-import '../../core/core.dart';
-import '../features.dart';
+import '../core.dart';
 
-part 'provider.g.dart';
+part 'user.g.dart';
 
 @riverpod
 class UserState extends _$UserState {
@@ -26,10 +24,10 @@ class UserState extends _$UserState {
     state = await AsyncValue.guard(() async {
       final user = User(
         id: const Uuid().v4(),
-        authId: ref.read(authStateProvider).value!.user.id,
+        authId: ref.read(supabaseProvider).auth.currentSession!.user.id,
         name: name,
         birthDate: birthDate,
-        email: ref.read(authStateProvider).value!.user.email!,
+        email: ref.read(supabaseProvider).auth.currentSession!.user.email!,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );

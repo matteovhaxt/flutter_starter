@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
-import '../providers.dart';
 import 'core/core.dart';
 import 'features/features.dart';
 

@@ -1,16 +1,15 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
-import 'package:logger/web.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Project imports:
-import 'env.dart';
+import '../../../env.dart';
 
-part 'providers.g.dart';
+part 'app_startup.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<void> appStartup(AppStartupRef ref) async {
@@ -22,14 +21,4 @@ Future<void> appStartup(AppStartupRef ref) async {
     url: Env.supabaseApiUrl,
     anonKey: Env.supabaseAnonKey,
   );
-}
-
-@Riverpod(keepAlive: true)
-SupabaseClient supabase(SupabaseRef ref) {
-  return Supabase.instance.client;
-}
-
-@riverpod
-Logger logger(LoggerRef ref) {
-  return Logger();
 }

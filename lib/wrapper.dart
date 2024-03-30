@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'app/app.dart';
-import 'providers.dart';
+import 'app/core/core.dart';
 
 class AppWrapper extends ConsumerWidget {
   const AppWrapper({super.key});
