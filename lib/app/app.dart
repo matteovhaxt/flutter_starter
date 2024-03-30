@@ -63,11 +63,7 @@ class App extends ConsumerWidget {
               routes: [
                 GoRoute(
                   path: '/settings',
-                  builder: (context, state) => const Scaffold(
-                    body: Center(
-                      child: Text('Settings'),
-                    ),
-                  ),
+                  builder: (context, state) => const SettingsView(),
                 ),
               ],
             ),
