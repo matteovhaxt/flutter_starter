@@ -2,11 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../core.dart';
+
 extension InheritedContext on BuildContext {
   // inherited
   ScaffoldMessengerState get messenger => ScaffoldMessenger.of(this);
   ThemeData get theme => Theme.of(this);
   MediaQueryData get media => MediaQuery.of(this);
+
+  // constants
+  Paddings get paddings => const Paddings();
 
   // methods
   void showSnackBar(String message) {

@@ -28,7 +28,7 @@ class SettingsView extends HookConsumerWidget {
     }
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: context.paddings.medium),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -41,7 +41,8 @@ class SettingsView extends HookConsumerWidget {
               Card.outlined(
                 clipBehavior: Clip.hardEdge,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.paddings.small),
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
@@ -53,7 +54,8 @@ class SettingsView extends HookConsumerWidget {
               Card.outlined(
                 clipBehavior: Clip.hardEdge,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.paddings.small),
                   child: TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -95,7 +97,8 @@ class SettingsView extends HookConsumerWidget {
                       context: context,
                       builder: (context) => Dialog(
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: context.paddings.medium),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

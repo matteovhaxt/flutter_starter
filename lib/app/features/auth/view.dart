@@ -26,7 +26,7 @@ class AuthView extends HookConsumerWidget {
     }
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(horizontal: context.paddings.medium),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -34,7 +34,8 @@ class AuthView extends HookConsumerWidget {
               Card.outlined(
                 clipBehavior: Clip.hardEdge,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.paddings.small),
                   child: TextFormField(
                     controller: emailController,
                     autofocus: true,
@@ -49,7 +50,8 @@ class AuthView extends HookConsumerWidget {
               Card.outlined(
                 clipBehavior: Clip.hardEdge,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.paddings.small),
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: true,
