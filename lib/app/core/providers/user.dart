@@ -92,7 +92,7 @@ class UserState extends _$UserState {
         ref.read(loggerProvider).e('Error deleting user');
         return null;
       }
-      return User.fromJson(response.first);
+      return null;
     });
   }
 }
