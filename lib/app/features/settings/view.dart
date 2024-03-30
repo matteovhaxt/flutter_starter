@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import '../../core/core.dart';
 import '../features.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -74,10 +75,51 @@ class SettingsView extends HookConsumerWidget {
                 child: const Text('Sign Out'),
               ),
               TextButton(
+                child: Text(
+                  'Delete Account',
+                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                    color: context.theme.colorScheme.error,
+                  ),
+                ),
                 onPressed: () {
-                  ref.read(userStateProvider.notifier).deleteUser();
+                  showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                      'Are you sure you want to delete your account?'),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      context.pop();
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(userStateProvider.notifier)
+                                          .deleteUser();
+                                      ref
+                                          .read(authStateProvider.notifier)
+                                          .signOut();
+                                    },
+                                    child: Text(
+                                      'Delete Account',
+                                      style: context.theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                        color: context.theme.colorScheme.error,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ));
                 },
-                child: const Text('Delete Account'),
               ),
             ].separated(
               const Gap(16),
