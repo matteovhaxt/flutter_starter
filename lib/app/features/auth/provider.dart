@@ -17,7 +17,7 @@ class AuthState extends _$AuthState {
     required String email,
     required String password,
   }) async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final response = await ref.read(supabaseProvider).auth.signInWithPassword(
             email: email,
@@ -35,7 +35,7 @@ class AuthState extends _$AuthState {
     required String email,
     required String password,
   }) async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final response = await ref.read(supabaseProvider).auth.signUp(
             email: email,
@@ -50,10 +50,27 @@ class AuthState extends _$AuthState {
   }
 
   void signOut() async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.read(supabaseProvider).auth.signOut();
       return null;
+    });
+  }
+
+  void updateUser(String email) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final response =
+          await ref.read(supabaseProvider).auth.updateUser(UserAttributes(
+                email: email,
+              ));
+      if (response.user == null) {
+        ref.read(loggerProvider).e('Failed to update user');
+        return state.value;
+      } else {
+        final response = await ref.read(supabaseProvider).auth.refreshSession();
+        return response.session;
+      }
     });
   }
 }

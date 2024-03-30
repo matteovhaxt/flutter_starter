@@ -57,6 +57,7 @@ class SettingsView extends HookConsumerWidget {
                 ),
               ),
               ElevatedButton(
+                child: const Text('Save'),
                 onPressed: () {
                   final user = ref.read(userStateProvider).value;
                   ref.read(userStateProvider.notifier).updateUser(
@@ -65,14 +66,16 @@ class SettingsView extends HookConsumerWidget {
                           email: emailController.text,
                         ),
                       );
+                  ref.read(authStateProvider.notifier).updateUser(
+                        emailController.text,
+                      );
                 },
-                child: const Text('Save'),
               ),
               TextButton(
+                child: const Text('Sign Out'),
                 onPressed: () {
                   ref.read(authStateProvider.notifier).signOut();
                 },
-                child: const Text('Sign Out'),
               ),
               TextButton(
                 child: Text(

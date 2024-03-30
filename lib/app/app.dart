@@ -18,16 +18,28 @@ class App extends ConsumerWidget {
     final router = GoRouter(
       initialLocation: '/',
       refreshListenable: Listenable.merge([
-        StreamListenable(ref.read(supabaseProvider).auth.onAuthStateChange),
-        ValueNotifier(ref.watch(userStateProvider).value),
+        StreamListenable(
+          ref.read(
+            supabaseProvider
+                .select((provider) => provider.auth.onAuthStateChange),
+          ),
+        ),
+        ValueNotifier(
+          ref.watch(
+            userStateProvider.select((provider) => provider.value?.id),
+          ),
+        ),
       ]),
       redirect: (context, state) {
         final authUser = ref.read(supabaseProvider).auth.currentSession?.user;
         if (authUser == null) {
           return '/auth';
         } else {
-          final user = ref.read(userStateProvider).value;
-          if (user == null) {
+          final userProvider = ref.read(userStateProvider);
+          if (userProvider.isLoading) {
+            return null;
+          }
+          if (userProvider.value == null) {
             return '/signup';
           } else {
             if (state.fullPath == '/auth' || state.fullPath == '/signup') {

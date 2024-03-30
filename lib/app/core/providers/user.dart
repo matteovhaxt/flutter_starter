@@ -20,7 +20,7 @@ class UserState extends _$UserState {
   }
 
   void createUser(String name, DateTime birthDate) async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = User(
         id: const Uuid().v4(),
@@ -45,7 +45,7 @@ class UserState extends _$UserState {
   }
 
   void getUser(String authId) async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final response = await ref
           .read(supabaseProvider)
@@ -61,7 +61,7 @@ class UserState extends _$UserState {
   }
 
   void updateUser(User updatedUser) async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     final authId = ref.read(supabaseProvider).auth.currentSession!.user.id;
     state = await AsyncValue.guard(() async {
       final response = await ref
@@ -79,7 +79,7 @@ class UserState extends _$UserState {
   }
 
   void deleteUser() async {
-    state = const AsyncLoading();
+    state = const AsyncValue.loading();
     final authId = ref.read(supabaseProvider).auth.currentSession!.user.id;
     state = await AsyncValue.guard(() async {
       final response = await ref
