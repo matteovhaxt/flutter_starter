@@ -82,30 +82,16 @@ class SettingsView extends HookConsumerWidget {
                 'settings.headline'.tr(),
                 style: context.theme.textTheme.headlineMedium,
               ),
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                      labelText: 'settings.name'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'settings.name'.tr(),
                 ),
               ),
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'settings.email'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'settings.email'.tr(),
                 ),
               ),
               ElevatedButton(

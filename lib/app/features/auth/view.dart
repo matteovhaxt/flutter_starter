@@ -31,36 +31,22 @@ class AuthView extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: emailController,
-                    autofocus: true,
-                    validator: (value) => value?.validateEmail(),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      labelText: 'auth.email'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: emailController,
+                autofocus: true,
+                validator: (value) => value?.validateEmail(),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: 'auth.email'.tr(),
                 ),
               ),
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    validator: (value) => value?.validatePassword(),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      labelText: 'auth.password'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                validator: (value) => value?.validatePassword(),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: 'auth.password'.tr(),
                 ),
               ),
               Row(

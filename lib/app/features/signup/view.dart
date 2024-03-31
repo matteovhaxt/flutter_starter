@@ -52,43 +52,29 @@ class SignupView extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: nameController,
-                    autofocus: true,
-                    validator: _validateName,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      labelText: 'signup.name'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: nameController,
+                autofocus: true,
+                validator: _validateName,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: 'signup.name'.tr(),
                 ),
               ),
-              Card.outlined(
-                clipBehavior: Clip.hardEdge,
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: context.paddings.small),
-                  child: TextFormField(
-                    controller: birthdateController,
-                    onTapAlwaysCalled: true,
-                    onTap: () async {
-                      final date = await _showBirthdatePicker(context);
-                      if (date != null) {
-                        final formatted = DateFormat("yyyy-MM-dd").format(date);
-                        birthdateController.text = formatted;
-                      }
-                    },
-                    validator: _validateBirthdate,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      labelText: 'signup.birthdate'.tr(),
-                    ),
-                  ),
+              TextFormField(
+                controller: birthdateController,
+                onTapAlwaysCalled: true,
+                onTap: () async {
+                  final date = await _showBirthdatePicker(context);
+                  if (date != null) {
+                    final formatted = DateFormat("yyyy-MM-dd").format(date);
+                    birthdateController.text = formatted;
+                  }
+                },
+                validator: _validateBirthdate,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  labelText: 'signup.birthdate'.tr(),
                 ),
               ),
               ElevatedButton(
