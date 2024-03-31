@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 // Project imports:
 import '../../core/core.dart';
@@ -14,6 +15,49 @@ import '../features.dart';
 
 class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
+
+  void _showDeleteAccountDialog(BuildContext context, VoidCallback onPressed) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Padding(
+          padding: EdgeInsets.all(context.paddings.medium),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'settings.delete_account.message'.tr(),
+                textAlign: TextAlign.center,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    child: Text('settings.delete_account.cancel'.tr()),
+                    onPressed: () {
+                      context.pop();
+                    },
+                  ),
+                  TextButton(
+                    onPressed: onPressed,
+                    child: Text(
+                      'settings.delete_account.confirm'.tr(),
+                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.colorScheme.error,
+                      ),
+                    ),
+                  ),
+                ].separated(
+                  Gap(context.paddings.medium),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final nameController = useTextEditingController.fromValue(
@@ -79,58 +123,29 @@ class SettingsView extends HookConsumerWidget {
                       );
                 },
               ),
-              TextButton(
-                child: Text('settings.signout'.tr()),
+              TextButton.icon(
+                icon: const Icon(LucideIcons.logOut),
+                label: Text('settings.signout'.tr()),
                 onPressed: () {
                   ref.read(authStateProvider.notifier).signOut();
                 },
               ),
-              TextButton(
-                child: Text(
+              TextButton.icon(
+                icon: Icon(
+                  LucideIcons.userX,
+                  color: context.theme.colorScheme.error,
+                ),
+                label: Text(
                   'settings.delete_account.button'.tr(),
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: context.theme.colorScheme.error,
                   ),
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: context.paddings.medium),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text('settings.delete_account.message'.tr()),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      context.pop();
-                                    },
-                                    child: Text(
-                                        'settings.delete_account.cancel'.tr()),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(userStateProvider.notifier)
-                                          .deleteUser();
-                                      ref
-                                          .read(authStateProvider.notifier)
-                                          .signOut();
-                                    },
-                                    child: Text(
-                                      'settings.delete_account.confirm'.tr(),
-                                      style: context.theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                        color: context.theme.colorScheme.error,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ));
+                  _showDeleteAccountDialog(context, () {
+                    ref.read(userStateProvider.notifier).deleteUser();
+                    ref.read(authStateProvider.notifier).signOut();
+                  });
                 },
               ),
             ].separated(
