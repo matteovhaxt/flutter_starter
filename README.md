@@ -32,7 +32,13 @@ fvm doctor
 fvm flutter doctor
 ```
 
-3. Run the build_runner to build generated files
+3. Install flutter packages
+
+```bash {"id":"01HTAKNV58K7N1N8HD9D36W4PT"}
+fvm flutter pub get
+```
+
+4. Run the build_runner to build generated files
 
 ```bash {"id":"01HR4HCXRQDBPZA1HMNWPSDBD6"}
 fvm dart run build_runner build --delete-conflicting-outputs
