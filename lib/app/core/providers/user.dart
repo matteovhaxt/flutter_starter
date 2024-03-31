@@ -95,4 +95,8 @@ class UserState extends _$UserState {
       return null;
     });
   }
+
+  void clearUser() async {
+    state = const AsyncValue.data(null);
+  }
 }

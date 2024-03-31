@@ -36,9 +36,6 @@ class App extends ConsumerWidget {
           return '/auth';
         } else {
           final userProvider = ref.read(userStateProvider);
-          if (userProvider.isLoading) {
-            return null;
-          }
           if (userProvider.value == null) {
             return '/signup';
           } else {

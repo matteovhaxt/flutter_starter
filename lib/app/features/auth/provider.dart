@@ -23,9 +23,11 @@ class AuthState extends _$AuthState {
             email: email,
             password: password,
           );
-      if (response.user == null) {
-        throw UnimplementedError();
+      if (response.session == null) {
+        ref.read(loggerProvider).e('Failed to sign in with email');
+        return null;
       } else {
+        ref.read(userStateProvider.notifier).getUser(response.session!.user.id);
         return response.session;
       }
     });
@@ -41,8 +43,9 @@ class AuthState extends _$AuthState {
             email: email,
             password: password,
           );
-      if (response.user == null) {
-        throw UnimplementedError();
+      if (response.session == null) {
+        ref.read(loggerProvider).e('Failed to sign up with email');
+        return null;
       } else {
         return response.session;
       }
@@ -53,6 +56,7 @@ class AuthState extends _$AuthState {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.read(supabaseProvider).auth.signOut();
+      ref.read(userStateProvider.notifier).clearUser();
       return null;
     });
   }
@@ -60,10 +64,9 @@ class AuthState extends _$AuthState {
   void updateUser(String email) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final response =
-          await ref.read(supabaseProvider).auth.updateUser(UserAttributes(
-                email: email,
-              ));
+      final response = await ref.read(supabaseProvider).auth.updateUser(
+            UserAttributes(email: email),
+          );
       if (response.user == null) {
         ref.read(loggerProvider).e('Failed to update user');
         return state.value;
