@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 // Project imports:
 import '../../core/core.dart';
@@ -77,23 +78,30 @@ class SignupView extends HookConsumerWidget {
                   labelText: 'signup.birthdate'.tr(),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(userStateProvider.notifier).createUser(
-                        nameController.text,
-                        DateTime.parse(birthdateController.text),
-                      );
-                },
-                child: Text('signup.signup'.tr()),
-              ),
-              TextButton(
-                onPressed: () {
-                  ref.read(authStateProvider.notifier).signOut();
-                },
-                child: Text('signup.signout'.tr()),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(LucideIcons.userPlus),
+                    label: Text('signup.signup'.tr()),
+                    onPressed: () {
+                      ref.read(userStateProvider.notifier).createUser(
+                            nameController.text,
+                            DateTime.parse(birthdateController.text),
+                          );
+                    },
+                  ),
+                  TextButton.icon(
+                    icon: const Icon(LucideIcons.logOut),
+                    label: Text('signup.signout'.tr()),
+                    onPressed: () {
+                      ref.read(authStateProvider.notifier).signOut();
+                    },
+                  ),
+                ],
               )
             ].separated(
-              const Gap(8),
+              Gap(context.paddings.medium),
             ),
           ),
         ),

@@ -49,36 +49,31 @@ class AuthView extends HookConsumerWidget {
                   labelText: 'auth.password'.tr(),
                 ),
               ),
-              Row(
+              Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      icon: const Icon(LucideIcons.logIn),
-                      label: Text('auth.signin'.tr()),
-                      onPressed: () =>
-                          ref.read(authStateProvider.notifier).signInWithEmail(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              ),
-                    ),
+                  ElevatedButton.icon(
+                    icon: const Icon(LucideIcons.userPlus),
+                    label: Text('auth.signup'.tr()),
+                    onPressed: () =>
+                        ref.read(authStateProvider.notifier).signUpWithEmail(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
                   ),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      icon: const Icon(LucideIcons.userPlus),
-                      label: Text('auth.signup'.tr()),
-                      onPressed: () =>
-                          ref.read(authStateProvider.notifier).signUpWithEmail(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              ),
-                    ),
+                  TextButton.icon(
+                    icon: const Icon(LucideIcons.logIn),
+                    label: Text('auth.signin'.tr()),
+                    onPressed: () =>
+                        ref.read(authStateProvider.notifier).signInWithEmail(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
                   ),
-                ].separated(
-                  const Gap(10),
-                ),
-              ),
+                ],
+              )
             ].separated(
-              const Gap(10),
+              Gap(context.paddings.medium),
             ),
           ),
         ),

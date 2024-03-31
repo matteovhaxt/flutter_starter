@@ -76,7 +76,6 @@ class SettingsView extends HookConsumerWidget {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'settings.headline'.tr(),
@@ -94,46 +93,52 @@ class SettingsView extends HookConsumerWidget {
                   labelText: 'settings.email'.tr(),
                 ),
               ),
-              ElevatedButton(
-                child: Text('settings.save'.tr()),
-                onPressed: () {
-                  final user = ref.read(userStateProvider).value;
-                  ref.read(userStateProvider.notifier).updateUser(
-                        user!.copyWith(
-                          name: nameController.text,
-                          email: emailController.text,
-                        ),
-                      );
-                  ref.read(authStateProvider.notifier).updateUser(
-                        emailController.text,
-                      );
-                },
-              ),
-              TextButton.icon(
-                icon: const Icon(LucideIcons.logOut),
-                label: Text('settings.signout'.tr()),
-                onPressed: () {
-                  ref.read(authStateProvider.notifier).signOut();
-                },
-              ),
-              TextButton.icon(
-                icon: Icon(
-                  LucideIcons.userX,
-                  color: context.theme.colorScheme.error,
-                ),
-                label: Text(
-                  'settings.delete_account.button'.tr(),
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                    color: context.theme.colorScheme.error,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(LucideIcons.save),
+                    label: Text('settings.save'.tr()),
+                    onPressed: () {
+                      final user = ref.read(userStateProvider).value;
+                      ref.read(userStateProvider.notifier).updateUser(
+                            user!.copyWith(
+                              name: nameController.text,
+                              email: emailController.text,
+                            ),
+                          );
+                      ref.read(authStateProvider.notifier).updateUser(
+                            emailController.text,
+                          );
+                    },
                   ),
-                ),
-                onPressed: () {
-                  _showDeleteAccountDialog(context, () {
-                    ref.read(userStateProvider.notifier).deleteUser();
-                    ref.read(authStateProvider.notifier).signOut();
-                  });
-                },
-              ),
+                  TextButton.icon(
+                    icon: const Icon(LucideIcons.logOut),
+                    label: Text('settings.signout'.tr()),
+                    onPressed: () {
+                      ref.read(authStateProvider.notifier).signOut();
+                    },
+                  ),
+                  TextButton.icon(
+                    icon: Icon(
+                      LucideIcons.userX,
+                      color: context.theme.colorScheme.error,
+                    ),
+                    label: Text(
+                      'settings.delete_account.button'.tr(),
+                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.colorScheme.error,
+                      ),
+                    ),
+                    onPressed: () {
+                      _showDeleteAccountDialog(context, () {
+                        ref.read(userStateProvider.notifier).deleteUser();
+                        ref.read(authStateProvider.notifier).signOut();
+                      });
+                    },
+                  ),
+                ],
+              )
             ].separated(
               const Gap(16),
             ),
