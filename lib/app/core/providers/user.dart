@@ -13,7 +13,8 @@ class UserState extends _$UserState {
   AsyncValue<User?> build() {
     final authId = ref.read(supabaseProvider).auth.currentSession?.user.id;
     if (authId == null) {
-      throw Exception('Auth user not found');
+      ref.read(loggerProvider).e('Auth user not found');
+      return const AsyncValue.data(null);
     }
     getUser(authId);
     return state;
