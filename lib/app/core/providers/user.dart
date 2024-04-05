@@ -34,7 +34,7 @@ class UserState extends _$UserState {
       );
       final response = await ref
           .read(supabaseProvider)
-          .from('users')
+          .from('User')
           .insert(user.toJson())
           .select();
       if (response.isEmpty) {
@@ -50,7 +50,7 @@ class UserState extends _$UserState {
     state = await AsyncValue.guard(() async {
       final response = await ref
           .read(supabaseProvider)
-          .from('users')
+          .from('User')
           .select()
           .eq('auth_id', authId);
       if (response.isEmpty) {
@@ -67,7 +67,7 @@ class UserState extends _$UserState {
     state = await AsyncValue.guard(() async {
       final response = await ref
           .read(supabaseProvider)
-          .from('users')
+          .from('User')
           .update(updatedUser.toJson())
           .eq('auth_id', authId)
           .select();
@@ -85,7 +85,7 @@ class UserState extends _$UserState {
     state = await AsyncValue.guard(() async {
       final response = await ref
           .read(supabaseProvider)
-          .from('users')
+          .from('User')
           .delete()
           .eq('auth_id', authId)
           .select();
