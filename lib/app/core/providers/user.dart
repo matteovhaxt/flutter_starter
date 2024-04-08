@@ -91,7 +91,7 @@ class UserState extends _$UserState {
           .select();
       if (response.isEmpty) {
         ref.read(loggerProvider).e('Error deleting user');
-        return null;
+        return state.value;
       }
       return null;
     });

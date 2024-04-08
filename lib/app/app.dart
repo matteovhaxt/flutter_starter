@@ -16,7 +16,7 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/settings',
       refreshListenable: Listenable.merge([
         StreamListenable(
           ref.read(
@@ -36,6 +36,9 @@ class App extends ConsumerWidget {
           return '/auth';
         } else {
           final userProvider = ref.read(userStateProvider);
+          if (userProvider.isLoading) {
+            return null;
+          }
           if (userProvider.value == null) {
             if (state.fullPath == '/auth') {
               return null;
@@ -73,6 +76,12 @@ class App extends ConsumerWidget {
                 GoRoute(
                   path: '/settings',
                   builder: (context, state) => const SettingsView(),
+                  routes: [
+                    GoRoute(
+                      path: 'profile',
+                      builder: (context, state) => const ProfileView(),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -87,7 +96,8 @@ class App extends ConsumerWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      themeMode: ThemeMode.dark,
+      themeMode: ref.watch(userStateProvider).value?.settings.theme ??
+          ThemeMode.system,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
     );

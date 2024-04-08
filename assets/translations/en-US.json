@@ -1,6 +1,6 @@
 {
     "global": {
-        
+
     },
     "auth": {
         "start": {
@@ -28,20 +28,32 @@
         "settings": "Settings"
     },
     "home": {
-
+        
     },
     "settings": {
-        "headline": "Settings",
-        "name": "Name",
-        "email": "Email",
-        "save": "Save",
+        "title": "Settings",
+        "general": "General",
+        "profile": "Profile",
+        "language": "Language",
+        "light_theme": "Light Theme",
+        "dark_theme": "Dark Theme",
+        "about": "About",
+        "bug": "Bug Report",
+        "source": "Source Code",
         "signout": "Sign Out",
-        "delete_account": {
+        "delete": {
             "button": "Delete Account",
             "message": "Are you sure you want to delete your account?",
             "confirm": "Confirm",
             "cancel": "Cancel"
         }
+    },
+    "profile": {
+        "title": "Profile",
+        "name": "Name",
+        "email": "Email",
+        "birthdate": "Birthdate",
+        "save": "Save"
     }
 }
 
