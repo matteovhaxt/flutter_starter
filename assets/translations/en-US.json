@@ -1,20 +1,27 @@
 {
     "global": {
-
+        
     },
     "auth": {
-        "signin": "Sign In",
-        "signup": "Sign Up",
-        "email": "Email",
-        "password": "Password"
-    },
-    "signup": {
-        "name": "Name",
-        "name_is_required": "Name is required",
-        "birthdate": "Birthdate",
-        "birthdate_is_required": "Birthdate is required",
-        "signup": "Sign Up",
-        "signout": "Sign Out"
+        "start": {
+            "headline": "App Starter Template",
+            "caption": "By Matteo von Haxthausen",
+            "button": "Get started"
+        },
+        "credentials": {
+            "email": "Email",
+            "password": "Password",
+            "signup": "Sign Up",
+            "signin": "Sign In"
+        },
+        "profile": {
+            "name": "Name",
+            "name_is_required": "Name is required",
+            "birthdate": "Birthdate",
+            "birthdate_is_required": "Birthdate is required",
+            "signup": "Sign Up",
+            "signout": "Sign Out"
+        }
     },
     "navigation": {
         "home": "Home",

@@ -37,9 +37,13 @@ class App extends ConsumerWidget {
         } else {
           final userProvider = ref.read(userStateProvider);
           if (userProvider.value == null) {
-            return '/signup';
+            if (state.fullPath == '/auth') {
+              return null;
+            } else {
+              return '/auth';
+            }
           } else {
-            if (state.fullPath == '/auth' || state.fullPath == '/signup') {
+            if (state.fullPath == '/auth') {
               return '/';
             } else {
               return null;
@@ -51,10 +55,6 @@ class App extends ConsumerWidget {
         GoRoute(
           path: '/auth',
           builder: (context, state) => const AuthView(),
-        ),
-        GoRoute(
-          path: '/signup',
-          builder: (context, state) => const SignupView(),
         ),
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) =>
