@@ -1,6 +1,7 @@
 {
     "global": {
-
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen"
     },
     "validation": {
         "required": "Dieses Feld ist erforderlich",
@@ -53,12 +54,13 @@
         "about": "Über",
         "bug": "Fehler melden",
         "source": "Quellcode",
-        "signout": "Abmelden",
+        "signout": {
+            "button": "Abmelden",
+            "message": "Sind Sie sicher, dass Sie sich abmelden mchten?"
+        },
         "delete": {
             "button": "Konto löschen",
-            "message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
-            "confirm": "Bestätigen",
-            "cancel": "Abbrechen"
+            "message": "Sind Sie sicher, dass Sie Ihr Konto löschen mchten?"
         }
     },
     "profile": {

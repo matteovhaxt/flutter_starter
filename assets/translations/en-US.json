@@ -1,6 +1,7 @@
 {
     "global": {
-
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     },
     "validation": {
         "required": "This field is required",
@@ -53,12 +54,13 @@
         "about": "About",
         "bug": "Bug Report",
         "source": "Source Code",
-        "signout": "Sign Out",
+        "signout": {
+            "button": "Sign Out",
+            "message": "Are you sure you want to sign out?"
+        },
         "delete": {
             "button": "Delete Account",
-            "message": "Are you sure you want to delete your account?",
-            "confirm": "Confirm",
-            "cancel": "Cancel"
+            "message": "Are you sure you want to delete your account?"
         }
     },
     "profile": {

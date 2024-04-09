@@ -16,13 +16,13 @@ import '../features.dart';
 class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
 
-  void _showSelectLanguageBottomsheet(
-      BuildContext context, VoidCallback onSelected) {
+  void _showSelectLanguageBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
         padding: EdgeInsets.all(context.paddings.medium),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: context.supportedLocales
               .map(
                 (locale) => ListTile(
@@ -39,42 +39,87 @@ class SettingsView extends HookConsumerWidget {
     );
   }
 
-  void _showDeleteAccountDialog(BuildContext context, VoidCallback onPressed) {
-    showDialog(
+  void _showSignOutBottomSheet(BuildContext context, VoidCallback onPressed) {
+    showModalBottomSheet(
       context: context,
-      builder: (context) => Dialog(
-        child: Padding(
-          padding: EdgeInsets.all(context.paddings.medium),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'settings.delete_account.message'.tr(),
-                textAlign: TextAlign.center,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    child: Text('settings.delete_account.cancel'.tr()),
-                    onPressed: () {
-                      context.pop();
-                    },
-                  ),
-                  TextButton(
-                    onPressed: onPressed,
-                    child: Text(
-                      'settings.delete_account.confirm'.tr(),
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
-                        color: context.theme.colorScheme.error,
-                      ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(context.paddings.medium),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'settings.signout.message'.tr(),
+              style: context.theme.textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  child: Text('global.cancel'.tr()),
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+                TextButton(
+                  onPressed: onPressed,
+                  child: Text(
+                    'global.confirm'.tr(),
+                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.error,
                     ),
                   ),
-                ].separated(
-                  Gap(context.paddings.medium),
                 ),
-              )
-            ],
+              ].separated(
+                Gap(context.paddings.medium),
+              ),
+            )
+          ].separated(
+            Gap(context.paddings.medium),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showDeleteAccountBottomSheet(
+      BuildContext context, VoidCallback onPressed) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(context.paddings.medium),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'settings.delete.message'.tr(),
+              style: context.theme.textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  child: Text('global.cancel'.tr()),
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+                TextButton(
+                  onPressed: onPressed,
+                  child: Text(
+                    'global.confirm'.tr(),
+                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.error,
+                    ),
+                  ),
+                ),
+              ].separated(
+                Gap(context.paddings.medium),
+              ),
+            )
+          ].separated(
+            Gap(context.paddings.medium),
           ),
         ),
       ),
@@ -118,9 +163,7 @@ class SettingsView extends HookConsumerWidget {
               title: Text('settings.language.button'.tr()),
               trailing: const Icon(LucideIcons.chevronRight),
               onTap: () {
-                _showSelectLanguageBottomsheet(context, () {
-                  context.showSnackBar('Work in progress');
-                });
+                _showSelectLanguageBottomSheet(context);
               },
             ),
             ListTile(
@@ -177,10 +220,12 @@ class SettingsView extends HookConsumerWidget {
             ),
             ListTile(
               leading: const Icon(LucideIcons.logOut),
-              title: Text('settings.signout'.tr()),
+              title: Text('settings.signout.button'.tr()),
               trailing: const Icon(LucideIcons.chevronRight),
               onTap: () {
-                ref.read(authStateProvider.notifier).signOut();
+                _showSignOutBottomSheet(context, () {
+                  ref.read(authStateProvider.notifier).signOut();
+                });
               },
             ),
             ListTile(
@@ -199,7 +244,7 @@ class SettingsView extends HookConsumerWidget {
                 color: context.theme.colorScheme.error,
               ),
               onTap: () {
-                _showDeleteAccountDialog(context, () {
+                _showDeleteAccountBottomSheet(context, () {
                   ref.read(userStateProvider.notifier).deleteUser();
                   ref.read(authStateProvider.notifier).signOut();
                 });
