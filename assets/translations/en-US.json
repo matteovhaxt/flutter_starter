@@ -2,6 +2,15 @@
     "global": {
 
     },
+    "validation": {
+        "required": "This field is required",
+        "email": "Invalid Email",
+        "uppercase": "Should contain at least one uppercase letter",
+        "lowercase": "Should contain at least one lowercase letter",
+        "digit": "Should contain at least one digit",
+        "special_char": "Should contain at least one special character",
+        "min_8_char": "Must be at least 8 characters in length"
+    },
     "auth": {
         "start": {
             "headline": "App Starter Template",
@@ -34,7 +43,11 @@
         "title": "Settings",
         "general": "General",
         "profile": "Profile",
-        "language": "Language",
+        "language": {
+            "button": "Language",
+            "en": "🇬🇧 English",
+            "de": "🇩🇪 Deutsch"
+        },
         "light_theme": "Light Theme",
         "dark_theme": "Dark Theme",
         "about": "About",

@@ -1,10 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
+
 extension EmailValidator on String {
   String? validateEmail() {
     const pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     final isValid = RegExp(pattern).hasMatch(this);
     if (!isValid) {
-      return 'Invalid Email';
+      return 'validation.email'.tr();
     }
     return null;
   }
@@ -15,11 +17,11 @@ extension EmailValidator on String {
 extension PasswordValidator on String {
   String? validatePassword() {
     final patterns = {
-      r'^(?=.*[A-Z])': 'Should contain at least one uppercase letter',
-      r'^(?=.*[a-z])': 'Should contain at least one lowercase letter',
-      r'^(?=.*?[0-9])': 'Should contain at least one digit',
-      r'^(?=.*?[!@#\$&*~])': 'Should contain at least one special character',
-      r'^.{8,}': 'Must be at least 8 characters in length'
+      r'^(?=.*[A-Z])': 'validation.uppercase'.tr(),
+      r'^(?=.*[a-z])': 'validation.lowercase'.tr(),
+      r'^(?=.*?[0-9])': 'validation.digit'.tr(),
+      r'^(?=.*?[!@#\$&*~])': 'validation.special_char'.tr(),
+      r'^.{8,}': 'validation.min_8_char'.tr(),
     };
 
     for (var i in patterns.keys) {

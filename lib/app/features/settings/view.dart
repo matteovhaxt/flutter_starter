@@ -16,6 +16,29 @@ import '../features.dart';
 class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
 
+  void _showSelectLanguageBottomsheet(
+      BuildContext context, VoidCallback onSelected) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Padding(
+        padding: EdgeInsets.all(context.paddings.medium),
+        child: Column(
+          children: context.supportedLocales
+              .map(
+                (locale) => ListTile(
+                  title: Text('settings.language.${locale.languageCode}'.tr()),
+                  trailing: context.locale.languageCode == locale.languageCode
+                      ? const Icon(LucideIcons.check)
+                      : null,
+                  onTap: () => context.setLocale(locale),
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+
   void _showDeleteAccountDialog(BuildContext context, VoidCallback onPressed) {
     showDialog(
       context: context,
@@ -92,10 +115,12 @@ class SettingsView extends HookConsumerWidget {
             ),
             ListTile(
               leading: const Icon(LucideIcons.globe),
-              title: Text('settings.language'.tr()),
+              title: Text('settings.language.button'.tr()),
               trailing: const Icon(LucideIcons.chevronRight),
               onTap: () {
-                context.showSnackBar('Work in progress');
+                _showSelectLanguageBottomsheet(context, () {
+                  context.showSnackBar('Work in progress');
+                });
               },
             ),
             ListTile(

@@ -19,7 +19,10 @@ class AppWrapper extends ConsumerWidget {
       data: (_) => EasyLocalization(
         path: 'assets/translations',
         fallbackLocale: const Locale('en', 'US'),
-        supportedLocales: const [Locale('en', 'US')],
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('de', 'DE'),
+        ],
         child: const App(),
       ),
       error: (error, stackTrace) => MaterialApp(

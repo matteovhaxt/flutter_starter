@@ -1,0 +1,71 @@
+{
+    "global": {
+
+    },
+    "validation": {
+        "required": "Dieses Feld ist erforderlich",
+        "email": "Ungltige E-Mail",
+        "uppercase": "Muss mindestens einen Großschreibung enthalten",
+        "lowercase": "Muss mindestens einen Kleinbuchstaben enthalten",
+        "digit": "Muss mindestens eine Zahl enthalten",
+        "special_char": "Muss mindestens ein Sonderzeichen enthalten",
+        "min_8_char": "Muss mindestens 8 Zeichen lang sein"
+    },
+    "auth": {
+        "start": {
+            "headline": "App Starter",
+            "caption": "Von Matteo von Haxthausen",
+            "button": "Loslegen"
+        },
+        "credentials": {
+            "email": "E-Mail",
+            "password": "Passwort",
+            "signup": "Registrieren",
+            "signin": "Anmelden"
+        },
+        "profile": {
+            "name": "Name",
+            "name_is_required": "Name ist erforderlich",
+            "birthdate": "Geburtsdatum",
+            "birthdate_is_required": "Geburtsdatum ist erforderlich",
+            "signup": "Registrieren",
+            "signout": "Abmelden"
+        }
+    },
+    "navigation": {
+        "home": "Startseite",
+        "settings": "Einstellungen"
+    },
+    "home": {
+        
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "general": "Allgemein",
+        "profile": "Profil",
+        "language": {
+            "button": "Sprache",
+            "en": "🇬🇧 English",
+            "de": "🇩🇪 Deutsch"
+        },
+        "light_theme": "Helles Thema",
+        "dark_theme": "Dunkles Thema",
+        "about": "Über",
+        "bug": "Fehler melden",
+        "source": "Quellcode",
+        "signout": "Abmelden",
+        "delete": {
+            "button": "Konto löschen",
+            "message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+            "confirm": "Bestätigen",
+            "cancel": "Abbrechen"
+        }
+    },
+    "profile": {
+        "title": "Profil",
+        "name": "Name",
+        "email": "E-Mail",
+        "birthdate": "Geburtsdatum",
+        "save": "Speichern"
+    }
+}
