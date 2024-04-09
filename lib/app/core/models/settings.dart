@@ -1,7 +1,11 @@
-// Package imports:
+// Flutter imports:
 import 'package:flutter/material.dart';
-import '../core.dart';
+
+// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+// Project imports:
+import '../core.dart';
 
 part 'settings.freezed.dart';
 part 'settings.g.dart';

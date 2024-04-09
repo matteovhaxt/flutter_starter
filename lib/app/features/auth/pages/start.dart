@@ -1,7 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:gap/gap.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+
+// Project imports:
 import '../../../core/core.dart';
 
 class StartPage extends StatelessWidget {

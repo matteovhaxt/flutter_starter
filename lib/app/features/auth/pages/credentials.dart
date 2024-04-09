@@ -10,8 +10,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Project imports:
-import '../auth.dart';
 import '../../../core/core.dart';
+import '../auth.dart';
 
 class CredentialsPage extends HookConsumerWidget {
   const CredentialsPage({super.key});
