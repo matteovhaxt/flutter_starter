@@ -9,4 +9,6 @@ abstract class Env {
   static String supabaseApiUrl = _Env.supabaseApiUrl;
   @EnviedField(varName: 'SUPABASE_ANON_KEY', obfuscate: true)
   static String supabaseAnonKey = _Env.supabaseAnonKey;
+  @EnviedField(varName: 'APP_STORE_ID')
+  static String appStoreId = _Env.appStoreId;
 }
