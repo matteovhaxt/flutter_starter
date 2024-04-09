@@ -38,7 +38,15 @@ fvm flutter doctor
 fvm flutter pub get
 ```
 
-4. Run the build_runner to build generated files
+4. Install [supabase cli](https://github.com/supabase/cli) and run:
+
+```bash {"id":"01HV13R3NVABHJ9MVVNGXJT23Z"}
+supabase start
+```
+
+5. Add the output to the `.env` file
+
+6. Run the build_runner to build generated files
 
 ```bash {"id":"01HR4HCXRQDBPZA1HMNWPSDBD6"}
 fvm dart run build_runner build --delete-conflicting-outputs
