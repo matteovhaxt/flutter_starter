@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
@@ -250,6 +251,28 @@ class SettingsView extends HookConsumerWidget {
                 });
               },
             ),
+            FutureBuilder(
+              future: PackageInfo.fromPlatform(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      Text(
+                        snapshot.data!.appName,
+                        style: context.theme.textTheme.titleMedium,
+                      ),
+                      Text(
+                        '${snapshot.data!.version} (${snapshot.data!.buildNumber})',
+                        style: context.theme.textTheme.bodyMedium,
+                      ),
+                    ].separated(
+                      Gap(context.paddings.small),
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            )
           ].separated(
             Gap(context.paddings.small),
           ),
