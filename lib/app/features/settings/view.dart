@@ -60,8 +60,9 @@ class SettingsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkTheme =
-        ref.watch(userStateProvider).value?.settings.theme == ThemeMode.dark;
+    final isDarkTheme = ref.watch(userStateProvider
+            .select((provider) => provider.value?.settings.theme)) ==
+        ThemeMode.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text(

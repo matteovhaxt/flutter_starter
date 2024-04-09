@@ -7,7 +7,7 @@ import '../core.dart';
 
 part 'user.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UserState extends _$UserState {
   @override
   AsyncValue<User?> build() {
@@ -62,7 +62,7 @@ class UserState extends _$UserState {
   }
 
   void updateUser(User updatedUser) async {
-    state = const AsyncValue.loading();
+    // state = const AsyncValue.loading();
     final authId = ref.read(supabaseProvider).auth.currentSession!.user.id;
     state = await AsyncValue.guard(() async {
       final response = await ref
