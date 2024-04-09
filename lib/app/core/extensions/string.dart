@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:easy_localization/easy_localization.dart';
 
 extension EmailValidator on String {

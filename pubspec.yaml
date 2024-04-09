@@ -22,6 +22,11 @@ dependencies:
   envied: ^0.5.3
   logger: ^2.1.0
   uuid: ^4.3.3
+  url_launcher: ^6.2.5
+  package_info_plus: ^7.0.0
+  in_app_review: ^2.0.9
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
   # state management
   riverpod_annotation: ^2.3.4
@@ -34,11 +39,6 @@ dependencies:
   # annotation
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
-  url_launcher: ^6.2.5
-  package_info_plus: ^7.0.0
-  in_app_review: ^2.0.9
-  flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
