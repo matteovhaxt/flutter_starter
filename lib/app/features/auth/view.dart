@@ -57,7 +57,7 @@ class _AuthViewState extends ConsumerState<AuthView> {
         controller: pageController,
         children: [
           StartPage(onStart: () => pageController.goToNextPage()),
-          const CredentialsPage(),
+          CredentialsPage(),
           const ProfilePage(),
         ],
       ),

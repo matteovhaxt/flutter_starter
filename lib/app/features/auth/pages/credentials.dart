@@ -14,7 +14,9 @@ import '../../../core/core.dart';
 import '../auth.dart';
 
 class CredentialsPage extends HookConsumerWidget {
-  const CredentialsPage({super.key});
+  CredentialsPage({super.key});
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,22 +33,27 @@ class CredentialsPage extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(
-                controller: emailController,
-                autofocus: true,
-                validator: (value) => value?.validateEmail(),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'auth.credentials.email'.tr(),
-                ),
-              ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                validator: (value) => value?.validatePassword(),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'auth.credentials.password'.tr(),
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: emailController,
+                      autofocus: true,
+                      validator: (value) => value?.validateEmail(),
+                      decoration: InputDecoration(
+                        labelText: 'auth.credentials.email'.tr(),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      validator: (value) => value?.validatePassword(),
+                      decoration: InputDecoration(
+                        labelText: 'auth.credentials.password'.tr(),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Column(
@@ -56,11 +63,15 @@ class CredentialsPage extends HookConsumerWidget {
                   ElevatedButton.icon(
                     icon: const Icon(LucideIcons.userPlus),
                     label: Text('auth.credentials.signup'.tr()),
-                    onPressed: () =>
+                    onPressed: () {
+                      final validation = formKey.currentState?.validate();
+                      if (validation == true) {
                         ref.read(authStateProvider.notifier).signUpWithEmail(
                               email: emailController.text,
                               password: passwordController.text,
-                            ),
+                            );
+                      }
+                    },
                   ),
                   TextButton.icon(
                     icon: const Icon(LucideIcons.logIn),
