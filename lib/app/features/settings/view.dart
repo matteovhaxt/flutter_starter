@@ -19,7 +19,8 @@ import '../features.dart';
 class SettingsView extends HookConsumerWidget {
   const SettingsView({super.key});
 
-  void _showSelectLanguageBottomSheet(BuildContext context) {
+  void _showSelectLanguageBottomSheet(
+      BuildContext context, void Function(Locale locale) onPressed) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -33,7 +34,7 @@ class SettingsView extends HookConsumerWidget {
                   trailing: context.locale.languageCode == locale.languageCode
                       ? const Icon(LucideIcons.check)
                       : null,
-                  onTap: () => context.setLocale(locale),
+                  onTap: () => onPressed(locale),
                 ),
               )
               .toList(),
@@ -166,7 +167,17 @@ class SettingsView extends HookConsumerWidget {
               title: Text('settings.language.button'.tr()),
               trailing: const Icon(LucideIcons.chevronRight),
               onTap: () {
-                _showSelectLanguageBottomSheet(context);
+                _showSelectLanguageBottomSheet(context, (locale) {
+                  context.setLocale(locale);
+                  final user = ref.read(userStateProvider).value;
+                  ref.read(userStateProvider.notifier).updateUser(
+                        user!.copyWith(
+                          settings: user.settings.copyWith(
+                            locale: locale,
+                          ),
+                        ),
+                      );
+                });
               },
             ),
             ListTile(
