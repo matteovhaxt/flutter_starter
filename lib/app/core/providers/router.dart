@@ -35,7 +35,7 @@ GoRouter router(RouterRef ref) {
       } else {
         final userProvider = ref.read(userStateProvider);
         if (userProvider.isLoading) {
-          return null;
+          return '/loading';
         }
         if (userProvider.value == null) {
           if (state.fullPath == '/auth') {
@@ -53,6 +53,10 @@ GoRouter router(RouterRef ref) {
       }
     },
     routes: [
+      GoRoute(
+        path: '/loading',
+        builder: (context, state) => const LoadingView(),
+      ),
       GoRoute(
         path: '/auth',
         builder: (context, state) => const AuthView(),
