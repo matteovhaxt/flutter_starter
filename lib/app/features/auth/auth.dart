@@ -1,3 +1,4 @@
 export 'view.dart';
 export 'provider.dart';
-export 'pages/pages.dart';
+export 'credentials.dart';
+export 'create-profile.dart';

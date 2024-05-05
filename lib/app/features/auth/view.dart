@@ -1,65 +1,52 @@
 // Flutter imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 // Project imports:
 import '../../core/core.dart';
-import 'auth.dart';
 
-class AuthView extends StatefulHookConsumerWidget {
+class AuthView extends StatelessWidget {
   const AuthView({super.key});
 
   @override
-  ConsumerState<AuthView> createState() => _AuthViewState();
-}
-
-class _AuthViewState extends ConsumerState<AuthView> {
-  int index = 0;
-
-  @override
   Widget build(BuildContext context) {
-    final pageController = usePageController(
-      initialPage: index,
-    );
-    pageController.addListener(() {
-      setState(() {
-        index = (pageController.page ?? 0).toInt();
-      });
-    });
-    final authState = ref.watch(authStateProvider);
-    if (authState.hasError) {
-      context.showSnackBar((authState.error as AuthException).message);
-    }
-    ref.listen(authStateProvider, (prev, next) {
-      if (next.value != null) {
-        pageController.goToNextPage();
-      }
-    });
     return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) {
-            if (index > 0) {
-              return IconButton(
-                onPressed: () => pageController.goToPreviousPage(),
-                icon: const Icon(Icons.arrow_back),
-              );
-            }
-            return const SizedBox.shrink();
-          },
+      appBar: AppBar(),
+      body: Padding(
+        padding: EdgeInsets.all(context.paddings.medium),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Icon(
+              LucideIcons.rocket,
+              size: 40,
+            ),
+            Column(
+              children: [
+                Text(
+                  'auth.start.headline'.tr(),
+                  style: context.theme.textTheme.headlineMedium,
+                ),
+                Text(
+                  'auth.start.caption'.tr(),
+                  style: context.theme.textTheme.labelMedium,
+                ),
+              ].separated(
+                Gap(context.paddings.medium),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => context.go('/auth/credentials'),
+              child: Text('auth.start.button'.tr()),
+            ),
+          ],
         ),
-      ),
-      body: PageView(
-        controller: pageController,
-        children: [
-          StartPage(onStart: () => pageController.goToNextPage()),
-          CredentialsPage(),
-          const ProfilePage(),
-        ],
       ),
     );
   }

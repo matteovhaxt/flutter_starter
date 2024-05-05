@@ -31,18 +31,15 @@ GoRouter router(RouterRef ref) {
     redirect: (context, state) {
       final authUser = ref.read(supabaseProvider).auth.currentSession?.user;
       if (authUser == null) {
-        return '/auth';
+        if (state.fullPath?.startsWith('/auth') ?? false) {
+          return null;
+        } else {
+          return '/auth';
+        }
       } else {
         final userProvider = ref.read(userStateProvider);
-        if (userProvider.isLoading) {
-          return '/loading';
-        }
         if (userProvider.value == null) {
-          if (state.fullPath == '/auth') {
-            return null;
-          } else {
-            return '/auth';
-          }
+          return '/auth/create-profile';
         } else {
           if (state.fullPath == '/auth') {
             return '/';
@@ -60,6 +57,16 @@ GoRouter router(RouterRef ref) {
       GoRoute(
         path: '/auth',
         builder: (context, state) => const AuthView(),
+        routes: [
+          GoRoute(
+            path: 'credentials',
+            builder: (context, state) => CredentialsView(),
+          ),
+          GoRoute(
+            path: 'create-profile',
+            builder: (context, state) => CreateProfileView(),
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
