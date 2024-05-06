@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 // Project imports:
+import '../../features/features.dart';
 import '../core.dart';
 
 part 'user.g.dart';
@@ -43,6 +44,7 @@ class UserState extends _$UserState {
       }
       return User.fromJson(response.first);
     });
+    ref.read(settingsStateProvider.notifier).createSettings();
   }
 
   void getUser(String authId) async {
@@ -59,6 +61,7 @@ class UserState extends _$UserState {
       }
       return User.fromJson(response.first);
     });
+    ref.read(settingsStateProvider.notifier).getSettings();
   }
 
   void updateUser(User updatedUser) async {

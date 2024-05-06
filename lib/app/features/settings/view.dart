@@ -12,7 +12,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
-import 'package:flutter_starter/env.dart';
+import '../../../env.dart';
 import '../../core/core.dart';
 import '../features.dart';
 
@@ -132,8 +132,8 @@ class SettingsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkTheme = ref.watch(userStateProvider
-            .select((provider) => provider.value?.settings.theme)) ==
+    final isDarkTheme = ref.watch(settingsStateProvider
+            .select((provider) => provider.value?.theme)) ==
         ThemeMode.dark;
     return Scaffold(
       appBar: AppBar(
@@ -169,12 +169,10 @@ class SettingsView extends HookConsumerWidget {
               onTap: () {
                 _showSelectLanguageBottomSheet(context, (locale) {
                   context.setLocale(locale);
-                  final user = ref.read(userStateProvider).value;
-                  ref.read(userStateProvider.notifier).updateUser(
-                        user!.copyWith(
-                          settings: user.settings.copyWith(
-                            locale: locale,
-                          ),
+                  final settings = ref.read(settingsStateProvider).value;
+                  ref.read(settingsStateProvider.notifier).updateSettings(
+                        settings!.copyWith(
+                          locale: locale,
                         ),
                       );
                 });
@@ -192,12 +190,10 @@ class SettingsView extends HookConsumerWidget {
               trailing: Switch.adaptive(
                 value: isDarkTheme,
                 onChanged: (value) {
-                  final user = ref.read(userStateProvider).value;
-                  ref.read(userStateProvider.notifier).updateUser(
-                        user!.copyWith(
-                          settings: user.settings.copyWith(
-                            theme: value ? ThemeMode.dark : ThemeMode.light,
-                          ),
+                  final settings = ref.read(settingsStateProvider).value;
+                  ref.read(settingsStateProvider.notifier).updateSettings(
+                        settings!.copyWith(
+                          theme: value ? ThemeMode.dark : ThemeMode.light,
                         ),
                       );
                 },
@@ -247,6 +243,8 @@ class SettingsView extends HookConsumerWidget {
               trailing: const Icon(LucideIcons.chevronRight),
               onTap: () {
                 _showSignOutBottomSheet(context, () {
+                  ref.read(settingsStateProvider.notifier).clearSettings();
+                  ref.read(userStateProvider.notifier).clearUser();
                   ref.read(authStateProvider.notifier).signOut();
                 });
               },
@@ -268,6 +266,7 @@ class SettingsView extends HookConsumerWidget {
               ),
               onTap: () {
                 _showDeleteAccountBottomSheet(context, () {
+                  ref.read(settingsStateProvider.notifier).deleteSettings();
                   ref.read(userStateProvider.notifier).deleteUser();
                   ref.read(authStateProvider.notifier).signOut();
                 });

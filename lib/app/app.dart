@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Project imports:
 import 'core/core.dart';
+import 'features/settings/provider.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -14,8 +15,6 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-    final themeMode = ref.watch(
-        userStateProvider.select((provider) => provider.value?.settings.theme));
     return MaterialApp.router(
       routerDelegate: router.routerDelegate,
       routeInformationProvider: router.routeInformationProvider,
@@ -23,7 +22,8 @@ class App extends ConsumerWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      themeMode: themeMode ?? ThemeMode.system,
+      themeMode: ref.watch(
+          settingsStateProvider.select((provider) => provider.value?.theme)),
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
     );
