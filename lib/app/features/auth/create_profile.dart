@@ -11,7 +11,6 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 // Project imports:
 import '../../core/core.dart';
-import '../settings/provider.dart';
 import 'auth.dart';
 
 class CreateProfileView extends HookConsumerWidget {
